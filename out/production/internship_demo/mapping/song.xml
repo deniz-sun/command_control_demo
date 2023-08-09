@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 5.3//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping">
+
+<hibernate-mapping>
+    <class name="quokka.models.Song" table="song">
+        <id name="id">
+            <generator class="assigned"/>
+        </id>
+
+        <property name="song_title"/>
+        <property name="song_artist"/>
+        <property name="song_album"/>
+
+    </class>
+
+</hibernate-mapping>
