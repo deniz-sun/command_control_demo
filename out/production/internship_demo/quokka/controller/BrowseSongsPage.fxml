@@ -18,12 +18,12 @@
                <Font size="24.0" />
             </font>
          </Label>
-         <TableView fx:id="SongsTable" layoutY="170.0" prefHeight="406.0" prefWidth="623.0" stylesheets="@styles.css">
+         <TableView fx:id="BrowseSongsTable" layoutY="170.0" prefHeight="406.0" prefWidth="623.0" stylesheets="@styles.css">
             <columns>
-               <TableColumn fx:id="savedTitle" prefWidth="164" text="Title" />
-               <TableColumn fx:id="savedAlbum" prefWidth="154" text="Album" />
-               <TableColumn fx:id="savedArtist" prefWidth="164" text="Artist" />
-               <TableColumn fx:id="savedReleaseDate" prefWidth="140.0" text="Release Date" />
+               <TableColumn fx:id="browseTitle" prefWidth="164" text="Title" />
+               <TableColumn fx:id="browseAlbum" prefWidth="154" text="Album" />
+               <TableColumn fx:id="browseArtist" prefWidth="164" text="Artist" />
+               <TableColumn fx:id="browseReleaseDate" prefWidth="140.0" text="Release Date" />
             </columns>
          </TableView>
          <Label layoutX="283.0" layoutY="78.0" text="Songs">
@@ -32,9 +32,6 @@
             </font>
          </Label>
          <Button text="Add Song to Account" onAction="#addSelectedSongToAccount" />
-
       </AnchorPane>
-      <!--      <Button layoutX="109.0" layoutY="157.0" mnemonicParsing="false" onAction="#refreshSongs" styleClass="button2" stylesheets="@styles.css" text="Refresh" />-->
-
    </AnchorPane>
 </AnchorPane>

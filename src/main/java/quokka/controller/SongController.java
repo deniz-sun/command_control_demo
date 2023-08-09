@@ -2,6 +2,7 @@ package quokka.controller;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
+import org.hibernate.envers.internal.entities.mapper.relation.query.TwoEntityOneAuditedQueryGenerator;
 import quokka.JavaPostgreSql;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -18,12 +19,19 @@ public class SongController {
     @FXML
     public TableView<Song> SongsTable;
     @FXML
+    public TableView<Song> BrowseSongsTable;
+    @FXML
     public DatePicker song_release_date;
     @FXML
     public TableColumn<Song, String> savedTitle, savedArtist, savedAlbum;
+    @FXML
+    public TableColumn<Song, String> browseTitle, browseAlbum, browseArtist;
+
 
     @FXML
     public TableColumn<Song, LocalDate> savedReleaseDate;
+    @FXML
+    public TableColumn<Song, LocalDate> browseReleaseDate;
 
     @FXML
     public Label welcomeMessage;
@@ -41,11 +49,18 @@ public class SongController {
     }
     public void collectUser(Account account){
         currentAccount = account;
-        updateSongsTableView();
+        updateBrowseSongsTableView();
 
 
     }
 
+    public void initialize(){
+        browseTitle.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getSongTitle()));
+        browseArtist.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getSongArtist()));
+        browseAlbum.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getSongAlbum()));
+        browseReleaseDate.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getReleaseDate()));
+
+    }
 
     public void writeData(ActionEvent event){
         int savedSongId = JavaPostgreSql.saveSong(song_title.getText(), song_artist.getText(), song_album.getText(), song_release_date.getValue());
@@ -53,7 +68,7 @@ public class SongController {
         savedTitle.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getSongTitle()));
         savedArtist.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getSongArtist()));
         savedAlbum.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getSongAlbum()));
-        savedReleaseDate.setCellValueFactory(param -> new SimpleObjectProperty<LocalDate>(param.getValue().getReleaseDate()));
+        savedReleaseDate.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getReleaseDate()));
 
         song_album.clear();
         song_title.clear();
@@ -65,13 +80,13 @@ public class SongController {
     }
 
     public void addSelectedSongToAccount(ActionEvent event) {
-        Song selectedSong = SongsTable.getSelectionModel().getSelectedItem();
+        Song selectedSong = BrowseSongsTable.getSelectionModel().getSelectedItem();
 
         if (selectedSong != null && currentAccount != null) {
             // Associate the selected song with the logged-in account
             JavaPostgreSql.associateSongWithAccount(currentAccount, selectedSong);
 
-            updateSongsTableView();
+            updateBrowseSongsTableView();
             AccountController.showSuccess("Song Added", "The selected song has been added to your account.", "Success");
         } else {
             // Show an error message if no song is selected or no account is logged in
@@ -79,9 +94,10 @@ public class SongController {
         }
     }
 
-    private void updateSongsTableView() {
+    private void updateBrowseSongsTableView() {
         ObservableList<Song> allSongs = JavaPostgreSql.getAllSongs();
         System.out.println(allSongs);
-        SongsTable.setItems(allSongs);
+        BrowseSongsTable.setItems(allSongs);
     }
+
 }
