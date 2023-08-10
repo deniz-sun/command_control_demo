@@ -1,13 +1,10 @@
 package quokka;
 
+import org.hibernate.*;
 import quokka.models.Account;
 import quokka.models.Song;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -20,7 +17,7 @@ import java.util.List;
 
 public class JavaPostgreSql {
 
-
+    //registers an account
     public static int saveAccount(String first_name, String last_name, String email, char[] password){
         StandardServiceRegistry ssr = new StandardServiceRegistryBuilder()
                 .configure("hibernate.cfg.xml")
@@ -38,14 +35,13 @@ public class JavaPostgreSql {
 
         session.save(acc);
         t.commit();
-        System.out.println("Successfully saved");
         int savedAccountId = acc.getId();
 
         session.close();
         factory.close();
         return savedAccountId;
     }
-
+    //authentication for user credentials
     public static Account authenticateUserAndGetAccount(String email, char[] password) {
         Transaction transaction = null;
 
@@ -59,8 +55,9 @@ public class JavaPostgreSql {
 
             if (account != null && Arrays.equals(account.getPassword(), password)) {
                 return account;
-            } else {
-                return null; // Authentication failed
+            }
+            else {
+                return null;
             }
         } catch (Exception e) {
             if (transaction != null) {
@@ -71,7 +68,7 @@ public class JavaPostgreSql {
         }
     }
 
-    private static SessionFactory createSessionFactory() {
+    public static SessionFactory createSessionFactory() {
         StandardServiceRegistry ssr = new StandardServiceRegistryBuilder()
                 .configure("hibernate.cfg.xml")
                 .build();
@@ -129,6 +126,20 @@ public class JavaPostgreSql {
         return account;
     }
 
+    /*
+      public static Account getAccountById(int id) {
+          try (SessionFactory sessionFactory = createSessionFactory(); Session session = sessionFactory.openSession()) {
+              return session.get(Account.class, id);
+          } catch (Exception e) {
+              e.printStackTrace();
+              return null;
+          }
+      }
+
+     */
+
+
+
     //for: each email has a single corresponding account
     public static Account getAccountByEmail(String email) {
         StandardServiceRegistry ssr = new StandardServiceRegistryBuilder()
@@ -153,6 +164,22 @@ public class JavaPostgreSql {
 
         return account;
     }
+
+    /*
+    public static Account getAccountByEmail(String email) {
+    try (SessionFactory sessionFactory = createSessionFactory(); Session session = sessionFactory.openSession()) {
+        Criteria criteria = session.createCriteria(Account.class);
+        criteria.add(Restrictions.eq("email", email));
+        return (Account) criteria.uniqueResult();
+    } catch (Exception e) {
+        e.printStackTrace();
+        return null;
+    }
+}
+     */
+
+
+
     //for: an email can correspond to multiple accounts ?
     public static List<Account> getAccountsByEmail(String email) {
         StandardServiceRegistry ssr = new StandardServiceRegistryBuilder()
@@ -266,25 +293,45 @@ public class JavaPostgreSql {
 
 
     public static void associateSongWithAccount(Account account, Song song) {
-        StandardServiceRegistry ssr = new StandardServiceRegistryBuilder()
-                .configure("hibernate.cfg.xml")
-                .build();
+        Transaction t = null;
+        SessionFactory factory = null;
+        Session session = null;
 
-        Metadata meta = new MetadataSources(ssr)
-                .getMetadataBuilder()
-                .build();
+        try {
+            StandardServiceRegistry ssr = new StandardServiceRegistryBuilder()
+                    .configure("hibernate.cfg.xml")
+                    .build();
 
-        SessionFactory factory = meta.getSessionFactoryBuilder().build();
-        Session session = factory.openSession();
-        Transaction t = session.beginTransaction();
+            Metadata meta = new MetadataSources(ssr)
+                    .getMetadataBuilder()
+                    .build();
 
-        account.getSongs().add(song);
-        session.update(account);
+            factory = meta.getSessionFactoryBuilder().build();
+            session = factory.openSession();
+            t = session.beginTransaction();
 
-        t.commit();
-        session.close();
-        factory.close();
+            // Initialize the songs collection before adding the song
+            Hibernate.initialize(account.getSongs());
+
+            account.getSongs().add(song);
+            session.update(account);
+
+            t.commit();
+        } catch (Exception e) {
+            if (t != null) {
+                t.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+            if (factory != null) {
+                factory.close();
+            }
+        }
     }
+
 
 
 }

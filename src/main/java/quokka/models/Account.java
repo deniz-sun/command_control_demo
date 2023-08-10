@@ -23,18 +23,8 @@ public class Account {
             inverseJoinColumns = @JoinColumn(name = "song_id"))
     private Set<Song> songs = new HashSet<>();
 
-    public String getEmail() {
-        return email;
-    }
-
-    public Set<Song> getSongs() {
-        return songs;
-    }
-
-
     public Account() {
     }
-
 
     public Account(String first_name, String last_name, String email, char[] password) {
         this.first_name = first_name;
@@ -55,6 +45,13 @@ public class Account {
         return last_name;
     }
     public char[] getPassword() {return password;}
+    public String getEmail() {
+        return email;
+    }
+
+    public Set<Song> getSongs() {
+        return songs;
+    }
 
     @Override
     public String toString() {

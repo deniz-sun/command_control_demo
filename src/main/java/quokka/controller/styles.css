@@ -8,6 +8,11 @@ BFB8DA
 E8B7D4
 A5678E
  */
+/*
+.buttonGreen{
+    -fx-background-color: linear-gradient(to bottom, #1dbbdd44, #93f9b944);
+}
+ */
 
 .button2 {
     -fx-background-color: linear-gradient(to bottom, #7FACD6, #BFB8DA);
@@ -17,7 +22,9 @@ A5678E
     -fx-background-color:  linear-gradient(to bottom, #BFB8DA, #7FACD6);
 
 }
-
+.menu-bar{
+    -fx-background-color: linear-gradient(to bottom, #BFB8DA, #B1A3FF);
+}
 
 .table-view {
     -fx-background-color: transparent;
@@ -29,7 +36,7 @@ A5678E
     -fx-background-color: transparent;
 }
 .table-view .column-header-background{
-    -fx-background-color: linear-gradient(to bottom, #1dbbdd44, #93f9b944);
+    -fx-background-color: linear-gradient(to bottom, #7FACD6, #BFB8DA);
     -fx-background-radius: 7px 7px 0px 0px;
 }
 .table-view .column-header {
@@ -73,6 +80,13 @@ A5678E
     -fx-background-color:  linear-gradient(to right, #1dbbdd44, #93f9b944);
 }
 
-#AnchorPane{
-    -fx-background-color: #E3E4E6;
+.anchor-pane{
+    -fx-background-color: linear-gradient(to bottom, #B1A3FF, #BFB8DA);
+}
+.menu-button{
+    -fx-background-color: linear-gradient(to bottom, #BFB8DA, #B1A3FF);
+}
+.menu-button:hover{
+    -fx-background-color: #BFB8DA;
+
 }

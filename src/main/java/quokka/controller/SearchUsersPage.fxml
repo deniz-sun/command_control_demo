@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="AnchorPane"  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="anchor-pane" stylesheets="@styles.css"  xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
     <Separator layoutX="1131.0" layoutY="452.0" prefHeight="0.0" prefWidth="636.0" />
     <AnchorPane layoutX="1129.0" layoutY="137.0" prefHeight="315.0" prefWidth="636.0">
         <Text layoutX="87.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User's first name:" />

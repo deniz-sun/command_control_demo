@@ -23,18 +23,6 @@ public class LoginController {
     public TextField loginEmail, loginPassword;
     private Stage stage;
     private Scene scene;
-    private Parent root;
-
-
-    public Account getCurrentAccount() {
-        return currentAccount;
-    }
-
-    private Account currentAccount;
-
-    /**
-     *
-     */
 
 
     @FXML
@@ -60,68 +48,14 @@ public class LoginController {
                 e.printStackTrace();
                 AccountController.showAlert("Error!", null, "Error loading the home page.");
             }
-            System.out.println(account);
 
-
-            //    SongController.collectUser(account);    // this one has error
-            System.out.println("after collecting account"); //doesn't reach here
-            //songController.showWelcome();
-
-        } else {
+        }
+        else {
             // Display an error message for failed login
             AccountController.showAlert("Login Error", "Invalid email or password.", "Error");
         }
     }
 
-
-/*
-    public void handleLogin(ActionEvent event) throws IOException {
-        String email = loginEmail.getText();
-        char[] password = loginPassword.getText().toCharArray();
-
-        Account account = JavaPostgreSql.getAccountByEmail(email);
-        String emailInDatabase = account.getEmail();
-        char[] passwordInDatabase = account.getPassword();
-
-
-        if (email.isEmpty()){
-            AccountController.showAlert("Form Error!", null, "Please enter your email");
-            return;
-        }
-        if (password.length == 0){
-            AccountController.showAlert("Form Error!", null, "Please enter your password");
-            return;
-        }
-
-
-        if (emailInDatabase.equals(email) && Arrays.equals(passwordInDatabase, password)) {
-            currentAccount = account;
-            AccountController.showSuccess("User: " + email,"Login Successful", "Success!");
-
-
-            goToHomePage(event); //error
-
-
-            SongController songController = new SongController();
-            songController.collectUser(currentAccount);
-            songController.showWelcome();
-
-
-
-
-}        else {
-            AccountController.showAlert("Failed login", "Error","Incorrect email or password");
-        }
-    }
-    */
-
-    public void handleLogout(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
 
 
