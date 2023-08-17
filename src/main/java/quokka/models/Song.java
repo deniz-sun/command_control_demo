@@ -18,6 +18,22 @@ public class Song {
     private String song_title;
     private String song_artist;
     private String song_album;
+
+/*
+    public int getHitCount() {
+        return hitCount;
+    }
+
+    public void setHitCount(int hitCount) {
+        this.hitCount = hitCount;
+    }
+
+    @Column(name = "hit_count")
+    private int hitCount;
+
+
+*/
+
     public Song() {}
     public Song(String song_title, String song_artist, String song_album, LocalDate song_release_date){
         this.song_title = song_title;

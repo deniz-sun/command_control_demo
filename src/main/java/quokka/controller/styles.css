@@ -20,6 +20,7 @@ A5678E
 }
 .button2:hover {
     -fx-background-color:  linear-gradient(to bottom, #BFB8DA, #7FACD6);
+    -fx-cursor: hand;
 
 }
 .menu-bar{
@@ -49,6 +50,7 @@ A5678E
 .table-row-cell:hover {
     -fx-background-color: #93f9b911;
     -fx-text-background-color: red;
+    -fx-cursor: hand;
 }
 .table-row-cell:odd{
     -fx-background-color: #93f9b911;
@@ -88,5 +90,10 @@ A5678E
 }
 .menu-button:hover{
     -fx-background-color: #BFB8DA;
+    -fx-cursor: hand;
+
+}
+.homebutton{
+    -fx-cursor: hand;
 
 }

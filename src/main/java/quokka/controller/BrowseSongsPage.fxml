@@ -4,28 +4,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="anchor-pane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="quokka.controller.SongController">
-   <AnchorPane layoutX="-2.0" layoutY="1.0" prefHeight="129.0" prefWidth="1923.0" styleClass="menu-bar" stylesheets="@styles.css">
-      <children>
-         <Button layoutX="10.0" layoutY="15.0" mnemonicParsing="false" prefHeight="114.0" prefWidth="278.0" styleClass="menu-button" stylesheets="@styles.css" text="Browse Songs">
-            <font>
-               <Font size="24.0" />
-            </font>
-         </Button>
-         <Button layoutX="1607.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="114.0" prefWidth="278.0" styleClass="menu-button" stylesheets="@styles.css" text="Logout">
-            <font>
-               <Font size="24.0" />
-            </font>
-         </Button>
-         <Button layoutX="295.0" layoutY="16.0" mnemonicParsing="false" onAction="#goToSongRegister" prefHeight="114.0" prefWidth="278.0" styleClass="menu-button" stylesheets="@styles.css" text="Add Song">
-            <font>
-               <Font size="24.0" />
-            </font>
-         </Button>
-      </children></AnchorPane>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="anchor-pane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="quokka.controller.SongController">
    <AnchorPane layoutX="506.0" layoutY="77.0" prefHeight="996.0" prefWidth="926.0">
       <AnchorPane layoutX="169.0" layoutY="186.0" prefHeight="674.0" prefWidth="623.0">
          <Label layoutX="283.0" layoutY="78.0" text="Songs">
@@ -33,20 +18,14 @@
                <Font size="24.0" />
             </font>
          </Label>
-         <TableView fx:id="BrowseSongsTable" layoutY="170.0" prefHeight="406.0" prefWidth="623.0" stylesheets="@styles.css">
-            <columns>
-               <TableColumn fx:id="browseTitle" prefWidth="164" text="Title" />
-               <TableColumn fx:id="browseAlbum" prefWidth="154" text="Album" />
-               <TableColumn fx:id="browseArtist" prefWidth="164" text="Artist" />
-               <TableColumn fx:id="browseReleaseDate" prefWidth="140.0" text="Release Date" />
-            </columns>
-         </TableView>
+         <StackPane fx:id="allSongsPane" layoutY="170.0"> </StackPane>
+
          <Label layoutX="283.0" layoutY="78.0" text="Songs">
             <font>
                <Font size="24.0" />
             </font>
          </Label>
-         <Button layoutX="248.0" layoutY="581.0" onAction="#addSelectedSongToAccount" styleClass="button2" stylesheets="@styles.css" text="Add Song to Account" />
+    <!--     <Button layoutX="246.0" layoutY="614.0" onAction="#addSelectedSongToAccount" styleClass="button2" stylesheets="@styles.css" text="Add Song to Account" /> -->
       </AnchorPane>
    </AnchorPane>
    <Label fx:id="welcomeMessage" layoutX="155.0" layoutY="378.0" prefHeight="53.0" prefWidth="461.0">
@@ -54,4 +33,25 @@
          <Font size="24.0" />
       </font>
    </Label>
+   <AnchorPane layoutX="5.0" prefHeight="65.0" prefWidth="1928.0" styleClass="menu-bar" stylesheets="@styles.css">
+      <Button layoutX="161.0" layoutY="12.0" mnemonicParsing="false" onAction="#goToBrowseSong" prefHeight="114.0" prefWidth="278.0" styleClass="menu-button" stylesheets="@styles.css" text="Browse Songs">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="1607.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="114.0" prefWidth="278.0" styleClass="menu-button" stylesheets="@styles.css" text="Logout">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="434.0" layoutY="13.0" mnemonicParsing="false" onAction="#goToSongRegister" prefHeight="114.0" prefWidth="278.0" styleClass="menu-button" stylesheets="@styles.css" text="Register Song">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <ImageView layoutX="61.0" layoutY="39.0">
+         <Image url="@../../../../../../../Downloads/homeicon.png"/>
+      </ImageView>
+      <Button fx:id="homebutton" layoutX="11.0" layoutY="7.0" mnemonicParsing="false" onAction="#goToHome" prefHeight="118.0" prefWidth="150.0" style="-fx-background-color: transparent;" styleClass="homebutton" stylesheets="@styles.css" />
+   </AnchorPane>
 </AnchorPane>

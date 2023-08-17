@@ -11,6 +11,7 @@
 
         <property name="first_name"/>
         <property name="last_name"/>
+        <property name="email"/>
 
     </class>
 

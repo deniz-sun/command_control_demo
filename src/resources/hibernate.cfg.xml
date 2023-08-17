@@ -21,6 +21,7 @@
 
         <mapping class="quokka.models.Account"/>
         <mapping class="quokka.models.Song"/>
+        <mapping class="quokka.models.Area"/>
 
     </session-factory>
 

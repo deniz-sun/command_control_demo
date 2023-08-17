@@ -35,11 +35,19 @@ public class LoginController {
         if (account != null) {
             // Authentication successful, proceed to load songs data and switch to SongPage
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("BrowseSongsPage.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Map.fxml"));
                 Parent root = loader.load();
+
+                /*
                 SongController songController = loader.getController();
+
                 songController.collectUser(account);
                 songController.showWelcome();
+                */
+
+                MapController mapController = loader.getController();
+                mapController.collectUser(account);
+
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);

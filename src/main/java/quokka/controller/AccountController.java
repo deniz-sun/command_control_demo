@@ -1,5 +1,6 @@
 package quokka.controller;
 
+import javafx.scene.paint.Color;
 import quokka.JavaPostgreSql;
 import quokka.models.Account;
 //import javafx.beans.property.SimpleIntegerProperty;
@@ -45,6 +46,11 @@ public class AccountController {
 
 
     @FXML
+    private ColorPicker accountColor;
+
+
+
+    @FXML
     public Label first_nameLabel1, last_nameLabel1;
     @FXML
     public TextField idEntry, emailEntry;
@@ -57,11 +63,20 @@ public class AccountController {
     @FXML
     private ListView<Song> addedSongsListView;
 
+
     public void register(ActionEvent event) {
-        System.out.println(first_name.getText());
-        System.out.println(last_name.getText());
-        int savedAccountId = JavaPostgreSql.saveAccount(first_name.getText(), last_name.getText(), email.getText(), password.getText().toCharArray());
+        String colorAsString = convertColorToString(accountColor.getValue());
+
+        int savedAccountId = JavaPostgreSql.saveAccount(first_name.getText(),
+                                                        last_name.getText(),
+                                                        email.getText(),
+                                                        password.getText().toCharArray(),
+                                                        colorAsString);
         showSuccess("Account created successfully",null, "Success!");
+        first_name.clear();
+        last_name.clear();
+        email.clear();
+        password.clear();
 
         //addedUserLabel.setText("User has been added with the id: " + savedAccountId );
 /*
@@ -80,6 +95,7 @@ public class AccountController {
         last_nameLabel1.setText(account.getLastName());
 
     }
+
 
     public void searchByEmail(ActionEvent event) {
         List<Account> accounts = JavaPostgreSql.getAccountsByEmail(emailEntry.getText());
@@ -132,6 +148,38 @@ public class AccountController {
         }
     }
 
+
+    // Convert Color to String
+    public static String convertColorToString(Color javafxColor) {
+        return String.format("%.3f,%.3f,%.3f,%.3f",
+                javafxColor.getRed(),
+                javafxColor.getGreen(),
+                javafxColor.getBlue(),
+                javafxColor.getOpacity()
+        );
+    }
+    // Convert String to Color
+    public static Color convertStringToColor(String colorAsString) {
+        String[] rgba = colorAsString.split(",");
+        double red = Double.parseDouble(rgba[0]);
+        double green = Double.parseDouble(rgba[1]);
+        double blue = Double.parseDouble(rgba[2]);
+        double opacity = Double.parseDouble(rgba[3]);
+        return Color.rgb((int) (red * 255), (int) (green * 255), (int) (blue * 255), opacity);
+    }
+
+    public static java.awt.Color convertStringToAWTColor(String colorAsString) {
+        String[] rgba = colorAsString.split(",");
+        float red = Float.parseFloat(rgba[0]);
+        float green = Float.parseFloat(rgba[1]);
+        float blue = Float.parseFloat(rgba[2]);
+        float opacity = Float.parseFloat(rgba[3]);
+
+        return new java.awt.Color(red, green, blue, opacity);
+    }
+}
+
+
     /**
      public void addSongToAccount(ActionEvent event) {
      /**
@@ -147,4 +195,3 @@ public class AccountController {
      }
      }
      */
-}

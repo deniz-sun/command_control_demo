@@ -12,7 +12,7 @@
         <property name="song_title"/>
         <property name="song_artist"/>
         <property name="song_album"/>
-
+        <property name="song_release_date"/>
     </class>
 
 </hibernate-mapping>

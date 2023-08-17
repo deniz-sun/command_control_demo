@@ -1,5 +1,6 @@
 package quokka;
 
+import javafx.scene.paint.Color;
 import org.hibernate.*;
 import quokka.models.Account;
 import quokka.models.Song;
@@ -11,6 +12,9 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.criterion.Restrictions;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +22,7 @@ import java.util.List;
 public class JavaPostgreSql {
 
     //registers an account
-    public static int saveAccount(String first_name, String last_name, String email, char[] password){
+    public static int saveAccount(String first_name, String last_name, String email, char[] password, String color){
         StandardServiceRegistry ssr = new StandardServiceRegistryBuilder()
                 .configure("hibernate.cfg.xml")
                 .build();
@@ -31,7 +35,7 @@ public class JavaPostgreSql {
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
 
-        Account acc = new Account(first_name, last_name, email, password);
+        Account acc = new Account(first_name, last_name, email, password, color);
 
         session.save(acc);
         t.commit();
@@ -98,7 +102,6 @@ public class JavaPostgreSql {
 
         session.save(song);
         t.commit();
-        System.out.println("Successfully saved report");
         int savedSongId = song.getId();
         session.close();
         factory.close();
@@ -246,7 +249,7 @@ public class JavaPostgreSql {
 
         return song;
     }
-
+/*
     public static List<Song> getSongsByTitle(String title) {
         StandardServiceRegistry ssr = new StandardServiceRegistryBuilder()
                 .configure("hibernate.cfg.xml")
@@ -269,7 +272,7 @@ public class JavaPostgreSql {
 
         return songs;
     }
-
+*/
     public static ObservableList<Song> getAllSongs() {
         StandardServiceRegistry ssr = new StandardServiceRegistryBuilder()
                 .configure("hibernate.cfg.xml")
@@ -291,7 +294,7 @@ public class JavaPostgreSql {
         return FXCollections.observableArrayList(songs);
     }
 
-
+/*
     public static void associateSongWithAccount(Account account, Song song) {
         Transaction t = null;
         SessionFactory factory = null;
@@ -332,6 +335,39 @@ public class JavaPostgreSql {
         }
     }
 
+*/
+    public static ObservableList<Song> getHitSongs() {
+        try (Session session = createSessionFactory().openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Song> query = builder.createQuery(Song.class);
+            Root<Song> root = query.from(Song.class);
+
+            query.select(root).orderBy(builder.desc(root.get("hitCount")));
+
+            List<Song> hitSongsList = session.createQuery(query).getResultList();
+
+            return FXCollections.observableArrayList(hitSongsList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return FXCollections.emptyObservableList();
+        }
+    }
 
 
+    public static ObservableList<Song> getMySongs(Account currentAccount) {
+        try (Session session = createSessionFactory().openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Song> query = builder.createQuery(Song.class);
+            Root<Song> root = query.from(Song.class);
+
+            query.select(root).where(builder.equal(root.join("accounts"), currentAccount));
+
+            List<Song> mySongsList = session.createQuery(query).getResultList();
+
+            return FXCollections.observableArrayList(mySongsList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return FXCollections.emptyObservableList();
+        }
+    }
 }
