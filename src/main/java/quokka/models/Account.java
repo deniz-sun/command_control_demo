@@ -25,8 +25,7 @@ public class Account {
         return color;
     }
 
-    // The colors are saved as: "0x" + their 6 digit hex codes + "ff".
-    // Example: black = 0x000000ff. white = 0xffffffff
+
     private String color;
 
 
