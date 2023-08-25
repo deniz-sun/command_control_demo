@@ -158,15 +158,7 @@ public class AccountController {
                 javafxColor.getOpacity()
         );
     }
-    // Convert String to Color
-    public static Color convertStringToColor(String colorAsString) {
-        String[] rgba = colorAsString.split(",");
-        double red = Double.parseDouble(rgba[0]);
-        double green = Double.parseDouble(rgba[1]);
-        double blue = Double.parseDouble(rgba[2]);
-        double opacity = Double.parseDouble(rgba[3]);
-        return Color.rgb((int) (red * 255), (int) (green * 255), (int) (blue * 255), opacity);
-    }
+
 
     public static java.awt.Color convertStringToAWTColor(String colorAsString) {
         String[] rgba = colorAsString.split(",");

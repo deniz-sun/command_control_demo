@@ -12,15 +12,15 @@ public class Area {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "account_id") // Adjust this to match your database schema
+    @JoinColumn(name = "account_id")
     private Account owner;
 
 
     @Column(nullable = false)
-    private String coordinates; // Store the coordinates as a string
+    private String coordinates;
 
     @Column(nullable = false)
-    private String color; // Store the color as a string
+    private String color;
 
     public void setOwner(Account owner) {
         this.owner = owner;
@@ -40,6 +40,9 @@ public class Area {
 
     public void setColor(String color) {
         this.color = color;
+    }
+    public int getId(){
+        return this.id;
     }
 
 

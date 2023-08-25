@@ -21,12 +21,18 @@ A5678E
 .button2:hover {
     -fx-background-color:  linear-gradient(to bottom, #BFB8DA, #7FACD6);
     -fx-cursor: hand;
-
+}
+.button2:disabled {
+    -fx-background-color: #CCCCCC;
+    -fx-text-fill: black;
+}
+.button2:disabled:hover {
+    -fx-background-color: #CCCCCC;
+    -fx-text-fill: black;
 }
 .menu-bar{
     -fx-background-color: linear-gradient(to bottom, #BFB8DA, #B1A3FF);
 }
-
 .table-view {
     -fx-background-color: transparent;
 }

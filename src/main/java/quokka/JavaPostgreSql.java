@@ -1,8 +1,8 @@
 package quokka;
 
-import javafx.scene.paint.Color;
 import org.hibernate.*;
 import quokka.models.Account;
+import quokka.models.Area;
 import quokka.models.Song;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -129,19 +129,6 @@ public class JavaPostgreSql {
         return account;
     }
 
-    /*
-      public static Account getAccountById(int id) {
-          try (SessionFactory sessionFactory = createSessionFactory(); Session session = sessionFactory.openSession()) {
-              return session.get(Account.class, id);
-          } catch (Exception e) {
-              e.printStackTrace();
-              return null;
-          }
-      }
-
-     */
-
-
 
     //for: each email has a single corresponding account
     public static Account getAccountByEmail(String email) {
@@ -167,20 +154,6 @@ public class JavaPostgreSql {
 
         return account;
     }
-
-    /*
-    public static Account getAccountByEmail(String email) {
-    try (SessionFactory sessionFactory = createSessionFactory(); Session session = sessionFactory.openSession()) {
-        Criteria criteria = session.createCriteria(Account.class);
-        criteria.add(Restrictions.eq("email", email));
-        return (Account) criteria.uniqueResult();
-    } catch (Exception e) {
-        e.printStackTrace();
-        return null;
-    }
-}
-     */
-
 
 
     //for: an email can correspond to multiple accounts ?
@@ -369,5 +342,27 @@ public class JavaPostgreSql {
             e.printStackTrace();
             return FXCollections.emptyObservableList();
         }
+    }
+
+    public static ObservableList<Area> getAllAreas() {
+        StandardServiceRegistry ssr = new StandardServiceRegistryBuilder()
+                .configure("hibernate.cfg.xml")
+                .build();
+
+        Metadata meta = new MetadataSources(ssr)
+                .getMetadataBuilder()
+                .build();
+
+        SessionFactory factory = meta.getSessionFactoryBuilder().build();
+        Session session = factory.openSession();
+
+        Criteria criteria = session.createCriteria(Area.class);
+        List<Area> areas = criteria.list();
+
+
+        session.close();
+        factory.close();
+
+        return FXCollections.observableArrayList(areas);
     }
 }

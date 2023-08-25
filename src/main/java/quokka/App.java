@@ -24,7 +24,7 @@ public class App extends Application {
 
            Scene scene = new Scene(root);
      //       stage.getIcons().add(new Image("src/resources/musiclogo.png"));
-           stage.setTitle("Songs Application");
+           stage.setTitle(" wooorlllllllllllllddddddddddddd");
             stage.setScene(scene);
             stage.show();
 
